@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Your Product</title>
+    <style>
+      body {
+        background-color: rgb(239, 239, 239);
+      }
+
+      header {
+        background-color: black;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        font-size: 2em;
+        height: 150px;
+      }
+
+      nav {
+        display: flex;
+        justify-content: center;
+      }
+      nav ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      nav li {
+        margin: 0 10px;
+      }
+      nav a {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: white;
+        text-decoration: none;
+        background-color: black;
+        border: 5px solid rgba(255, 255, 255, 0.2);
+        padding: 10px 20px;
+        display: inline-block;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+
+      main {
+        max-height: 1500px;
+      }
+
+      main section {
+        max-width: 800px;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        padding: 20px;
+        flex: 1;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      main h2 {
+        margin: 0 0 20px 0;
+        font-size: 1.5em;
+      }
+      main p {
+        margin: 0 0 20px 0;
+        line-height: 1.5;
+      }
+      main a {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: black;
+        text-decoration: none;
+        background-color: white;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        padding: 10px 20px;
+        display: inline-block;
+      }
+
+      .opening {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        bottom: relative;
+        height: 300px;
+      }
+      .openingimg {
+        float: right;
+        margin: 0 0 20px 20px;
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .reviewpage {
+        position: sticky;
+        top: 20px;
+        bottom: 50px;
+        right: 0%;
+        width: 300px;
+        height: 300px;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 50px;
+        margin-left: 0%;
+        margin: 0 0 50px 0;
+
+        transform: translateX(0);
+        transition: all 0.3s ease;
+      }
+
+      .reviewpage.hidden {
+        transform: translateX(-103%);
+      }
+
+      .toggle-review-button {
+        background-color: black;
+        color: white;
+        position: absolute;
+        top: 0%;
+        left: 100%;
+        width: 50px;
+        height: 50px;
+        border-top-right-radius: 50%;
+        border-bottom-right-radius: 50%;
+      }
+
+      .toggle-review-button img {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        transform-origin: center;
+        transform: scale(0.75);
+        animation: pulse 1.5s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(0.75);
+        }
+        50% {
+          transform: scale(0.9);
+        }
+        100% {
+          transform: scale((0.75));
+        }
+      }
+      .reviewimage {
+        position: relative;
+        top: 15px;
+        width: 100px;
+        height: relative;
+        display: block;
+        margin: 15px;
+        border-radius: 10px;
+      }
+      .reviewpage h3 {
+        text-align: left;
+        position: absolute;
+        bottom: 80%;
+        left: 45%;
+      }
+      .reviewdescription {
+        margin-left: 15px;
+        margin-top: 25px;
+      }
+
+      .reviewratingsection {
+        background-color: rgb(0, 0, 0);
+        width: 100%;
+        height: 50px;
+        color: white;
+        position: absolute;
+        bottom: 0px;
+      }
+      .nextreview {
+        position: absolute;
+        bottom: 20%;
+        right: 4%;
+        width: 25px;
+        height: 25px;
+        float: right;
+        background-color: black;
+        border-radius: 50%;
+
+        transform: scale(1);
+        transform: rotate(0deg);
+        transform-origin: center;
+        transition: all 0.3s ease;
+      }
+
+      .nextreview:hover {
+        transform: rotate(360deg) scale(1.5);
+      }
+      .previousreview {
+        position: absolute;
+        bottom: 20%;
+        left: 4%;
+        width: 25px;
+        height: 25px;
+        float: left;
+        background-color: black;
+        border-radius: 50%;
+
+        transform: scale(1);
+        transform: rotate(180deg);
+        transform-origin: center;
+        transition: all 0.3s ease;
+      }
+      .previousreview:hover {
+        transform: rotate(540deg) scale(1.5);
+      }
+
+      .reviewrating {
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        margin-left: 15px;
+        font-weight: bold;
+      }
+      .reviewlikes {
+        position: absolute;
+
+        bottom: -5px;
+        right: 30px;
+        font-weight: bold;
+      }
+      .starsparent {
+        display: flex;
+        position: absolute;
+        top: -10%;
+        left: -10%;
+      }
+      .starsparent img {
+        position: relative;
+        width: 25px;
+        height: 25px;
+        margin: 0px;
+      }
+      .starsparent li {
+        list-style: none;
+        margin: 0 2px;
+      }
+
+      .productpage {
+        position: sticky;
+        top: 50px;
+        bottom: 120px;
+        left: 100%;
+        width: 300px;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 0px;
+      }
+      .productimage {
+        position: relative;
+        top: 25px;
+        width: 250px;
+        height: 250px;
+        display: block;
+        margin: 25px;
+      }
+      .producttitle {
+        text-align: center;
+        margin-top: 20px;
+      }
+      .productdescription {
+        padding: 0 20px;
+      }
+
+      .purchasesection {
+        text-align: center;
+        margin-top: 20px;
+      }
+      .purchasebutton {
+        padding: 10px 20px;
+        margin-bottom: 30px;
+        background-color: black;
+        color: white;
+        border: 0;
+      }
+
+      footer {
+        position: relative;
+        bottom: 100%;
+        height: 50px;
+        background-color: black;
+        color: white;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>An amazing title to attract customers</h1>
+    </header>
+    <nav>
+      <ul>
+        <li><a href="#section-1">Section 1</a></li>
+        <li><a href="#section-2">Section 2</a></li>
+        <li><a href="#section-3">Section 3</a></li>
+        <li><a href="#section-4">Section 4</a></li>
+      </ul>
+    </nav>
+    <main>
+      <section id="opening" class="opening">
+        <img
+          class="openingimg"
+          src="Images/empty.png"
+          alt="cannot load image"
+        />
+        <h2>Opening</h2>
+        <p>
+          Talk about a problem and a solution what you product will fix and
+          provide value and descripe your product...
+        </p>
+      </section>
+
+      <section id="section-1">
+        <h2>Section 1</h2>
+        <p>Provide value & facts...</p>
+        <a href="#section-2">Next</a>
+      </section>
+
+      <section id="section-2">
+        <h2>Section 2</h2>
+        <p>more value & facts...</p>
+        <a href="#section-3">Next</a>
+      </section>
+
+      <section id="section-3">
+        <h2>Section 3</h2>
+        <p>
+          Make a statement like a person used your product and gave it a good
+          rating and review...
+        </p>
+        <a href="#section-4">Next</a>
+      </section>
+
+      <section id="section-4">
+        <h2>Section 4</h2>
+        <p>
+          A small summary of what you've said before and add a call to action to
+          send a person to your offer
+        </p>
+        <a class="purchasebutton" href="#">Purchase</a>
+      </section>
+
+      <div class="reviewpage">
+        <script src="ReviewGenerator.js">
+          window.onload = loadReview(GetPreviousReview());
+        </script>
+
+        <img
+          src="Images/blank-profile-picture-973460_1280.png"
+          alt="cannot load image"
+          class="reviewimage"
+          id="reviewimage"
+        />
+        <h3 id="reviewname">Stefan Stad</h3>
+        <p class="reviewdescription" id="reviewdescription">
+          Lovely product, definetly helped me out!
+        </p>
+        <img
+          src="Images/Arrow.png"
+          alt=""
+          onclick="loadReview(GetPreviousReview())"
+          class="previousreview"
+        />
+        <img
+          src="Images/Arrow.png"
+          alt=""
+          onclick="loadReview(GetNextReview())"
+          class="nextreview"
+        />
+        <div class="reviewratingsection">
+          <p class="reviewrating" id="reviewrating">4/5</p>
+
+          <ul class="starsparent">
+            <li class="star"><img src="Images/star.png" alt="" /></li>
+            <li class="star"><img src="Images/star.png" alt="" /></li>
+            <li class="star"><img src="Images/star.png" alt="" /></li>
+            <li class="star"><img src="Images/star.png" alt="" /></li>
+            <li class="star"><img src="Images/no star.png" alt="" /></li>
+          </ul>
+          <p class="reviewlikes" id="reviewlikes">36</p>
+          <div class="toggle-review-button">
+            <img src="Images/menu icon.png" id="toggle-review-button" />
+            <script>
+              const button = document.querySelector("#toggle-review-button");
+              const page = document.querySelector(".reviewpage");
+
+              button.addEventListener("click", function () {
+                page.classList.toggle("hidden");
+              });
+            </script>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>© Copyright 2022. All Rights Reserved.</p>
+    </footer>
+  </body>
+</html>
